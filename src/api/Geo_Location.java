@@ -1,17 +1,31 @@
+package api;
 
-
-public class GeoLocation implements api.GeoLocation {
+/**
+ * this class is build from the "pos" field in the Node data in the
+ * json file.
+ */
+public class Geo_Location implements GeoLocation {
 
     private double x;
     private double y;
     private double z;
 
-    public GeoLocation(double x, double y, double z){
+    public Geo_Location(double x, double y, double z){
         this.x = x;
         this.y = y;
         this.z = z;
     }
 
+    public Geo_Location(String pos){
+        String[] indexes = pos.split(",");
+        this.x = Double.parseDouble(indexes[0]);
+        this.y = Double.parseDouble(indexes[1]);
+        this.z = Double.parseDouble(indexes[2]);
+    }
+
+    public Geo_Location(GeoLocation g){
+        this(g.x(),g.y(),g.y());
+    }
 
     @Override
     public double x() {
