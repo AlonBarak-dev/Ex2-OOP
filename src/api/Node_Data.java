@@ -9,10 +9,10 @@ public class Node_Data implements NodeData{
     private String info;
     private int tag;
 
-    public Node_Data(GeoLocation pos, int id, double weight){
+    public Node_Data(GeoLocation pos, int id){
         this.id = id;
         this.position = new Geo_Location(pos);
-        this.weight = weight;
+        this.weight = 0;      //default
         this.info = "";      //default
         this.tag = 0;       //default
     }
@@ -59,6 +59,11 @@ public class Node_Data implements NodeData{
 
     @Override
     public void setTag(int t) {
-        this.tag = tag;
+        this.tag = t;
+    }
+    @Override
+    public String toString(){
+        String str = "ID: " + this.id + " POS: " + this.position.toString();
+        return str;
     }
 }

@@ -16,6 +16,14 @@ public class Edge_Data implements EdgeData{
         this.tag = tag;
     }
 
+    public Edge_Data(int src, int dest, double w){
+        this.src = src;
+        this.dest = dest;
+        this.weight = w;
+        this.info = "";         //default
+        this.tag = 0;       //default
+    }
+
 
     @Override
     public int getSrc() {
@@ -50,5 +58,10 @@ public class Edge_Data implements EdgeData{
     @Override
     public void setTag(int t) {
         this.tag = t;
+    }
+
+    @Override
+    public String toString(){
+        return "SRC: " + this.src + " DEST: " + this.dest + " WEIGHT: " + this.weight;
     }
 }

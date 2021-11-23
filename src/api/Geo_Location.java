@@ -20,11 +20,11 @@ public class Geo_Location implements GeoLocation {
         String[] indexes = pos.split(",");
         this.x = Double.parseDouble(indexes[0]);
         this.y = Double.parseDouble(indexes[1]);
-        this.z = Double.parseDouble(indexes[2]);
+        this.z = 0.0;
     }
 
     public Geo_Location(GeoLocation g){
-        this(g.x(),g.y(),g.y());
+        this(g.x(),g.y(),g.z());
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Geo_Location implements GeoLocation {
 
     @Override
     public double z() {
-        return z;
+        return this.z;
     }
 
     @Override
@@ -49,5 +49,9 @@ public class Geo_Location implements GeoLocation {
 
         double dist = Math.sqrt(distx - disty);
         return dist;
+    }
+    @Override
+    public String toString(){
+        return this.x + " , " + this.y + " , " + this.z;
     }
 }
