@@ -8,10 +8,7 @@ import org.json.simple.parser.ParseException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class Directed_Weighted_Graph implements DirectedWeightedGraph{
 
@@ -105,7 +102,8 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
 
     @Override
     public Iterator<NodeData> nodeIter() {      // TO DO
-        return null;
+
+        return this.nodes.values().iterator();
     }
 
     @Override
