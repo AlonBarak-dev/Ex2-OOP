@@ -16,6 +16,13 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
     private HashMap<Integer, NodeData> nodes;
     private HashMap<Integer, HashMap<Integer,EdgeData>> edges;
 
+    public Directed_Weighted_Graph(){
+        this.nodes = new HashMap<>();
+        this.edges = new HashMap<>();
+        this.modeCounter = 0;
+    }
+
+
     public Directed_Weighted_Graph(DirectedWeightedGraph g){
         this.nodes = new HashMap<>();
         this.edges = new HashMap<>();
@@ -28,7 +35,8 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
         for (int i = 0; i<g.nodeSize();i++){
             Iterator<EdgeData> tmp = g.edgeIter(i);
             while(tmp!= null && tmp.hasNext()){
-                this.connect(tmp.next().getSrc(),tmp.next().getDest(),tmp.next().getWeight());
+                EdgeData e = tmp.next();
+                this.connect(e.getSrc(),e.getDest(),e.getWeight());
             }
         }
         this.modeCounter = g.getMC();

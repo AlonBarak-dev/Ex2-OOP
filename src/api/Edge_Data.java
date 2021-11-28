@@ -16,6 +16,8 @@ public class Edge_Data implements EdgeData{
         this.tag = tag;
     }
 
+
+
     public Edge_Data(int src, int dest, double w){
         this.src = src;
         this.dest = dest;
