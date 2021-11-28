@@ -13,15 +13,32 @@ import java.util.*;
 public class Directed_Weighted_Graph implements DirectedWeightedGraph{
 
     private int modeCounter;
-    private int edgeCounter;
     private HashMap<Integer, NodeData> nodes;
     private HashMap<Integer, HashMap<Integer,EdgeData>> edges;
+
+    public Directed_Weighted_Graph(DirectedWeightedGraph g){
+        this.nodes = new HashMap<>();
+        this.edges = new HashMap<>();
+        Iterator<NodeData> itr = g.nodeIter();
+
+        while(itr != null && itr.hasNext()){
+            this.addNode(itr.next());
+        }
+
+        for (int i = 0; i<g.nodeSize();i++){
+            Iterator<EdgeData> tmp = g.edgeIter(i);
+            while(tmp!= null && tmp.hasNext()){
+                this.connect(tmp.next().getSrc(),tmp.next().getDest(),tmp.next().getWeight());
+            }
+        }
+        this.modeCounter = g.getMC();
+    }
+
 
     @SuppressWarnings("unchecked")
     public Directed_Weighted_Graph(String fileName){
         this.nodes = new HashMap<>();
         this.edges = new HashMap<>();
-        this.edgeCounter = 0;
         this.modeCounter = 0;
 
         JSONParser jsonParser = new JSONParser();
@@ -92,27 +109,35 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
             if (!this.edges.get(src).containsKey(dest)){
                 EdgeData newEdge = new Edge_Data(src,dest,w);
                 this.edges.get(src).put(dest, newEdge);
-                if(src != dest){
-                    this.edgeCounter++;
-                }
                 this.modeCounter++;
             }
         }
     }
 
     @Override
-    public Iterator<NodeData> nodeIter() {      // TO DO
-
+    public Iterator<NodeData> nodeIter() {
         return this.nodes.values().iterator();
     }
 
     @Override
-    public Iterator<EdgeData> edgeIter() {         // TO DO
-        return null;
+    public Iterator<EdgeData> edgeIter() {
+        HashMap<Integer,EdgeData> tmp = new HashMap<>();
+        int key = 0;
+        for (int i = 0; i < this.nodeSize();i++){
+            Iterator<EdgeData> e = edgeIter(i);
+            while(e != null && e.hasNext()){
+                tmp.put(key,e.next());
+                key++;
+            }
+        }
+        return tmp.values().iterator();
     }
 
     @Override
-    public Iterator<EdgeData> edgeIter(int node_id) {       // TO DO
+    public Iterator<EdgeData> edgeIter(int node_id) {
+        if (this.edges.get(node_id) != null) {
+            return this.edges.get(node_id).values().iterator();
+        }
         return null;
     }
 
@@ -149,8 +174,6 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
 
         if (rmEdge != null){
             this.modeCounter++;
-            if (src != dest)
-                this.edgeCounter--;
         }
 
         return rmEdge;

@@ -18,16 +18,26 @@ public class mainTest {
 
         //System.out.println("Nodes : " + grp.nodeSize() + " , Edges : " + grp.edgeSize());
         Iterator<NodeData> itr = grp.nodeIter();
-        System.out.println(grp.getMC());
-        while(itr.hasNext()){
-          System.out.println(itr.next());
+        try {
+            while (itr.hasNext()) {
+                System.out.println(itr.next());
+            }
+        }catch (RuntimeException e){
+            System.out.println("The graph changed");
         }
         GeoLocation g = new Geo_Location(20,32,0);
         NodeData n = new Node_Data(g,18);
         grp.addNode(n);
         System.out.println(grp.getMC());
-        while(itr.hasNext()){
-            System.out.println(itr.next());
+
+        Iterator<EdgeData> tmp = grp.edgeIter();
+
+        try {
+            while (tmp.hasNext()) {
+                System.out.println(tmp.next());
+            }
+        }catch (RuntimeException e){
+            System.out.println("The graph changed");
         }
 
 
