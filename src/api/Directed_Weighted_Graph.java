@@ -50,7 +50,7 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
         this.modeCounter = 0;
 
         JSONParser jsonParser = new JSONParser();
-        File f = new File("data/G1.json");      // should receive file path as input -> fileName
+        File f = new File(fileName);      // should receive file path as input -> fileName
         try(FileReader reader = new FileReader(f)){
 
             Object obj =  jsonParser.parse(reader);
