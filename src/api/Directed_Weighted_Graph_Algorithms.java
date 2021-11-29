@@ -7,8 +7,7 @@ import java.util.*;
 public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraphAlgorithms{
 
     private DirectedWeightedGraph graph;
-    public static final int NOT_VISITED = 0;
-    public static final int VISITED = 1;
+
 
     public Directed_Weighted_Graph_Algorithms(){
         this.graph = null;
@@ -187,18 +186,21 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
         // if the graph in not strongly connected -> return null
         if (!this.isConnected())
             return null;
-
+        // else
         double min_max_sp = Integer.MAX_VALUE;
         int chosenNode = -1;
         Iterator<NodeData> itr = this.graph.nodeIter();
+        // iterate over the graph nodes
         while(itr.hasNext()){
             int node = itr.next().getKey();
+            // find the maximum shortest path for each node
             double max_sp = maxShortestPath(node);
             if(max_sp < min_max_sp){
                 min_max_sp = max_sp;
                 chosenNode = node;
             }
         }
+        // return the node with the minimized maximum shortest path
         return this.graph.getNode(chosenNode);
     }
 
@@ -217,17 +219,17 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
     }
 
     @Override
-    public List<NodeData> tsp(List<NodeData> cities) {
+    public List<NodeData> tsp(List<NodeData> cities) {      // TO DO - SALESMAN PROBLEM
         return null;
     }
 
     @Override
-    public boolean save(String file) {
+    public boolean save(String file) {      // TO DO
         return false;
     }
 
     @Override
-    public boolean load(String file) {
+    public boolean load(String file) {      // TO DO
         return false;
     }
 }
