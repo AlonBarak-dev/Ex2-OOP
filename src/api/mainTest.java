@@ -21,6 +21,7 @@ public class mainTest {
         System.out.println(g.isConnected());
 
         System.out.println(g.shortestPath(0,3) + " W: " + g.shortestPathDist(0,3));
+        System.out.println(g.center());
 
         grp.removeEdge(3,0);
         Directed_Weighted_Graph_Algorithms g1 = new Directed_Weighted_Graph_Algorithms();
@@ -43,7 +44,7 @@ public class mainTest {
 
         System.out.println(g_1.shortestPath(0,10)+ " W: " + g_1.shortestPathDist(0,10));
 
-
+        System.out.println(g_1.center());
 
 
 

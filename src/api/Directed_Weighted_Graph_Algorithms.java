@@ -1,5 +1,7 @@
 package api;
 
+import org.w3c.dom.Node;
+
 import java.util.*;
 
 public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraphAlgorithms{
@@ -182,7 +184,36 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
 
     @Override
     public NodeData center() {
-        return null;
+        // if the graph in not strongly connected -> return null
+        if (!this.isConnected())
+            return null;
+
+        double min_max_sp = Integer.MAX_VALUE;
+        int chosenNode = -1;
+        Iterator<NodeData> itr = this.graph.nodeIter();
+        while(itr.hasNext()){
+            int node = itr.next().getKey();
+            double max_sp = maxShortestPath(node);
+            if(max_sp < min_max_sp){
+                min_max_sp = max_sp;
+                chosenNode = node;
+            }
+        }
+        return this.graph.getNode(chosenNode);
+    }
+
+    private double maxShortestPath(int src){
+        double maxSP = 0;
+        Iterator<NodeData> itr = this.graph.nodeIter();
+        while(itr.hasNext()){
+            NodeData n = itr.next();
+            if (n.getKey() != src) {
+                double sp = this.shortestPathDist(src, n.getKey());
+                if (sp > maxSP)
+                    maxSP = sp;
+            }
+        }
+        return maxSP;
     }
 
     @Override
