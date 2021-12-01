@@ -1,7 +1,12 @@
 package api;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.w3c.dom.Node;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraphAlgorithms{
@@ -220,16 +225,84 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
 
     @Override
     public List<NodeData> tsp(List<NodeData> cities) {      // TO DO - SALESMAN PROBLEM
+
+        double[][] adj = new double[cities.size()][cities.size()];
+        int i = 0, j = 0;
+
+        for (NodeData src : cities){
+            Iterator<EdgeData> itr = this.getGraph().edgeIter(src.getKey());
+            while(itr.hasNext()){
+                if (i == j){
+                    adj[i][j] = 0;
+                }
+                else {
+                    adj[i][j] = this.graph.getEdge(src.getKey(), itr.next().getDest()).getWeight();
+                }
+                j++;
+            }
+            i++;
+            j=0;
+        }
+
         return null;
     }
 
-    @Override
-    public boolean save(String file) {      // TO DO
-        return false;
+
+    @Override @SuppressWarnings("unchecked")
+    public boolean save(String file) {
+
+        Iterator<NodeData> itrNode = this.graph.nodeIter();
+        Iterator<EdgeData> itrEdge =  this.graph.edgeIter();
+        JSONObject obj = new JSONObject();
+        JSONArray edges = new JSONArray();
+        while(itrEdge.hasNext()){
+            EdgeData e = itrEdge.next();
+            JSONObject edge = new JSONObject();
+            edge.put("dest", e.getDest());
+            edge.put("w", e.getWeight());
+            edge.put("src", e.getSrc());
+            edges.add(edge);
+        }
+
+        JSONArray nodes = new JSONArray();
+        while(itrNode.hasNext()){
+            NodeData n = itrNode.next();
+            JSONObject node = new JSONObject();
+            node.put("id" , n.getKey());
+            node.put("pos" , n.getLocation().toString());
+            nodes.add(node);
+
+        }
+        FileWriter file2 = null;
+        try{
+            file2 = new FileWriter(file);
+            obj.put("Nodes", nodes);
+            obj.put("Edges", edges);
+            file2.write(obj.toString());
+        }catch(IOException e){
+            return false;
+        } finally{
+            if (file2 != null) {
+                try {
+                    file2.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
     }
 
     @Override
-    public boolean load(String file) {      // TO DO
-        return false;
+    public boolean load(String file) {
+
+
+        Directed_Weighted_Graph grp = new Directed_Weighted_Graph(file);
+        if (grp.nodeSize() != 0 || grp.edgeSize() != 0) {
+            this.init(grp);
+            return true;
+        }
+        else
+            return false;
     }
 }

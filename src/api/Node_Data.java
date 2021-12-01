@@ -13,7 +13,7 @@ public class Node_Data implements NodeData{
         this.id = id;
         this.position = new Geo_Location(pos);
         this.weight = 0;      //default
-        this.info = "";      //default
+        this.info = "pos: " + pos.toString() + ", id: " + id;      //default
         this.tag = 0;       //default
     }
 
