@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Consumer;
 
 public class Directed_Weighted_Graph implements DirectedWeightedGraph{
 
@@ -119,34 +120,143 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
                 this.edges.get(src).put(dest, newEdge);
                 this.modeCounter++;
             }
+            else if (this.edges.get(src).containsKey(dest)) {
+                EdgeData newEdge = new Edge_Data(src, dest, w);
+                this.edges.get(src).remove(dest);
+                this.edges.get(src).put(dest, newEdge);
+                this.modeCounter++;
+            }
         }
     }
 
     @Override
     public Iterator<NodeData> nodeIter() {
-        return this.nodes.values().iterator();
+        return new Iterator<NodeData>() {
+            Iterator<NodeData> itr = nodes.values().iterator();
+            int mode = modeCounter;
+
+            @Override
+            public void remove(){
+                checkMC();
+                itr.remove();
+            }
+
+            @Override
+            public void forEachRemaining(Consumer<? super NodeData> action){
+                checkMC();
+                itr.forEachRemaining(action);
+            }
+
+            @Override
+            public boolean hasNext() {
+                checkMC();
+                return itr.hasNext();
+            }
+
+            @Override
+            public NodeData next() {
+                checkMC();
+                return itr.next();
+            }
+
+            private void checkMC() throws NoSuchElementException{
+                if(mode != modeCounter)
+                    throw new NoSuchElementException();
+            }
+        };
     }
 
     @Override
     public Iterator<EdgeData> edgeIter() {
-        HashMap<Integer,EdgeData> tmp = new HashMap<>();
-        int key = 0;
-        for (int i = 0; i < this.nodeSize();i++){
-            Iterator<EdgeData> e = edgeIter(i);
-            while(e != null && e.hasNext()){
-                tmp.put(key,e.next());
-                key++;
+        return new Iterator<EdgeData>() {
+            Iterator<HashMap<Integer, EdgeData>> first = edges.values().iterator();
+            Iterator<EdgeData> second = first.next().values().iterator();
+            int mode = modeCounter;
+
+            @Override
+            public void remove() {
+                checkMC();
+                second.remove();
             }
-        }
-        return tmp.values().iterator();
+
+            @Override
+            public boolean hasNext() {
+                checkMC();
+                if (!second.hasNext()) {
+                    if (first.hasNext()) {
+                        second = first.next().values().iterator();
+                        return (second.hasNext());
+                    }
+                    return false;
+                }
+                return true;
+            }
+
+            @Override
+            public EdgeData next() throws NoSuchElementException {
+                checkMC();
+                if (!second.hasNext()) {
+                    if (first.hasNext()) {
+                        second = first.next().values().iterator();
+                        return second.next();
+                    }
+                    throw new NoSuchElementException();
+                }
+                return second.next();
+            }
+            @Override
+            public void forEachRemaining(Consumer<? super EdgeData> action){
+                checkMC();
+                while(first.hasNext()){
+                    second.forEachRemaining(action);
+                    second = first.next().values().iterator();
+                }
+            }
+
+            private void checkMC() throws NoSuchElementException{
+                if(mode != modeCounter)
+                    throw new NoSuchElementException();
+            }
+        };
     }
+
 
     @Override
     public Iterator<EdgeData> edgeIter(int node_id) {
-        if (this.edges.get(node_id) != null) {
-            return this.edges.get(node_id).values().iterator();
-        }
-        return null;
+        return new Iterator<EdgeData>() {
+            int mode = modeCounter;
+            Iterator<EdgeData> itr = edges.get(node_id).values().iterator();
+
+            @Override
+            public void remove(){
+                checkMC();
+                itr.remove();
+
+            }
+
+            @Override
+            public boolean hasNext() {
+                checkMC();
+                return itr.hasNext();
+            }
+
+            @Override
+            public EdgeData next() {
+               checkMC();
+               return itr.next();
+            }
+
+            @Override
+            public void forEachRemaining(Consumer<? super EdgeData> action) throws NullPointerException{
+                checkMC();
+                Iterator.super.forEachRemaining(action);
+            }
+
+            private void checkMC() throws NoSuchElementException{
+                if(mode != modeCounter)
+                    throw new NoSuchElementException();
+            }
+        };
     }
 
     @Override
@@ -194,7 +304,13 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
 
     @Override
     public int edgeSize() {
-        return this.edges.size();
+        int sum = 0;
+        Iterator<EdgeData> itr = this.edgeIter();
+        while(itr.hasNext()){
+            sum++;
+            itr.next();
+        }
+        return sum;
     }
 
     @Override

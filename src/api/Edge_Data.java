@@ -22,7 +22,7 @@ public class Edge_Data implements EdgeData{
         this.src = src;
         this.dest = dest;
         this.weight = w;
-        this.info = "";         //default
+        this.info = "SRC: " + this.src + " DEST: " + this.dest + " WEIGHT: " + this.weight;         //default
         this.tag = 0;       //default
     }
 
@@ -64,6 +64,6 @@ public class Edge_Data implements EdgeData{
 
     @Override
     public String toString(){
-        return "SRC: " + this.src + " DEST: " + this.dest + " WEIGHT: " + this.weight;
+        return this.info;
     }
 }

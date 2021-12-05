@@ -12,6 +12,8 @@ import java.util.*;
 public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraphAlgorithms{
 
     private DirectedWeightedGraph graph;
+    public static List<NodeData> list;
+    public static List<NodeData> city;
 
 
     public Directed_Weighted_Graph_Algorithms(){
@@ -103,8 +105,13 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
         Iterator<NodeData> itrDest = nodesList.listIterator();
         itrDest.next();
         while(itrDest.hasNext()){
+
            NodeData srcNode = itrSrc.next();
            NodeData destNode = itrDest.next();
+           if (city != null && city.contains(destNode)){
+               destNode.setTag(1);
+               list.add(destNode);
+           }
            EdgeData edge = this.graph.getEdge(srcNode.getKey(),destNode.getKey());
            distance += edge.getWeight();
         }
@@ -180,6 +187,7 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
         List<NodeData> path = new ArrayList<>();
         while(nodeWrapper != null){
             path.add(nodeWrapper.getNode());
+            nodeWrapper.getNode().setTag(1);        // visited
             nodeWrapper = nodeWrapper.getPredecessor();
         }
         Collections.reverse(path);
@@ -226,25 +234,47 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
     @Override
     public List<NodeData> tsp(List<NodeData> cities) {      // TO DO - SALESMAN PROBLEM
 
-        double[][] adj = new double[cities.size()][cities.size()];
-        int i = 0, j = 0;
+        /**
+         * find the closest node -> find the shortest path for each unvisited node.
+         * go to the closest node and add to the res list.
+         * return to the first line until all the cities nodes are visited.
+         * add the first node again to the list to close a circle.
+         * return the list.
+         */
 
-        for (NodeData src : cities){
-            Iterator<EdgeData> itr = this.getGraph().edgeIter(src.getKey());
-            while(itr.hasNext()){
-                if (i == j){
-                    adj[i][j] = 0;
+        // creating a result list
+        list = new ArrayList<>();
+        city = cities;
+        list.add(cities.get(0));
+        while(!this.allVisit(cities)){
+            double minPath = Integer.MAX_VALUE;
+            NodeData curr = list.get(list.size()-1);
+            int next = 0;
+            for (int i = 1; i < cities.size();i++){
+                double currMin;
+                if (cities.get(i).getTag() != 1){
+                    currMin = this.shortestPathDist(curr.getKey(), cities.get(i).getKey());
+                    if (currMin < minPath){
+                        minPath = currMin;
+                        next = i;
+                    }
                 }
-                else {
-                    adj[i][j] = this.graph.getEdge(src.getKey(), itr.next().getDest()).getWeight();
-                }
-                j++;
             }
-            i++;
-            j=0;
+            this.graph.getNode(next).setTag(1);
+            list.add(this.graph.getNode(next));
         }
+        return list;
+    }
 
-        return null;
+    private boolean allVisit(List<NodeData> cities) {
+
+        for(int i = 0; i < cities.size();i++){
+            if (cities.get(i).getTag() != 1){
+                return false;
+            }
+        }
+        return true;
+
     }
 
 
