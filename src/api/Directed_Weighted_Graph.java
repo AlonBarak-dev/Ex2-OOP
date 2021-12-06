@@ -138,6 +138,9 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
             @Override
             public void remove(){
                 checkMC();
+                NodeData n = itr.next();
+                removeNode(n.getKey());
+                mode++;
                 itr.remove();
             }
 
@@ -176,6 +179,9 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
             @Override
             public void remove() {
                 checkMC();
+                EdgeData e = second.next();
+                removeEdge(e.getSrc(),e.getDest());
+                mode++;
                 second.remove();
             }
 
@@ -230,6 +236,9 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
             @Override
             public void remove(){
                 checkMC();
+                EdgeData e = itr.next();
+                removeEdge(e.getSrc(),e.getDest());
+                mode++;
                 itr.remove();
 
             }

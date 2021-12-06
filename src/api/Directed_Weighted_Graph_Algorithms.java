@@ -108,10 +108,6 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
 
            NodeData srcNode = itrSrc.next();
            NodeData destNode = itrDest.next();
-           if (city != null && city.contains(destNode)){
-               destNode.setTag(1);
-               list.add(destNode);
-           }
            EdgeData edge = this.graph.getEdge(srcNode.getKey(),destNode.getKey());
            distance += edge.getWeight();
         }
@@ -187,7 +183,7 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
         List<NodeData> path = new ArrayList<>();
         while(nodeWrapper != null){
             path.add(nodeWrapper.getNode());
-            nodeWrapper.getNode().setTag(1);        // visited
+            //nodeWrapper.getNode().setTag(1);        // visited
             nodeWrapper = nodeWrapper.getPredecessor();
         }
         Collections.reverse(path);
@@ -242,28 +238,54 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
          * return the list.
          */
 
-        // creating a result list
-        list = new ArrayList<>();
+        // initialize city and list
         city = cities;
-        list.add(cities.get(0));
-        while(!this.allVisit(cities)){
-            double minPath = Integer.MAX_VALUE;
-            NodeData curr = list.get(list.size()-1);
-            int next = 0;
-            for (int i = 1; i < cities.size();i++){
-                double currMin;
-                if (cities.get(i).getTag() != 1){
-                    currMin = this.shortestPathDist(curr.getKey(), cities.get(i).getKey());
-                    if (currMin < minPath){
-                        minPath = currMin;
-                        next = i;
-                    }
+        list = new LinkedList<>();
+
+        setUnvisited(city);
+
+        NodeData v = city.get(0);       // start node
+        list.add(v);
+        while(!allVisit(city)){
+
+            NodeData u = minShortestPath(v.getKey());       // return the closest unvisited node
+            // mark visited nodes
+            List<NodeData> path = shortestPath2(v,u);
+            for (int i = 1; i < path.size();i++){
+                if (city.contains(path.get(i))){
+                    path.get(i).setTag(1);  // visited
                 }
+                list.add(path.get(i));      // add visited nodes to the list
             }
-            this.graph.getNode(next).setTag(1);
-            list.add(this.graph.getNode(next));
+
+            v = u;
         }
         return list;
+    }
+
+    private NodeData minShortestPath(int key) {
+
+        double min = Integer.MAX_VALUE;
+        int nodeKey = key;
+        for (int i = 0; i < city.size(); i++){
+            if(city.get(i).getTag() == 0 && city.get(i).getKey() != key){
+                double path = shortestPathDist(key,city.get(i).getKey());
+                if (path < min){
+                    min = path;
+                    nodeKey = city.get(i).getKey();
+                }
+            }
+        }
+        NodeData u = this.graph.getNode(nodeKey);
+        return u;
+    }
+
+    private void setUnvisited(List<NodeData> city) {
+        int i = 0;
+        while(i < city.size()){
+            city.get(i).setTag(0);
+            i++;
+        }
     }
 
     private boolean allVisit(List<NodeData> cities) {
@@ -328,7 +350,12 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
 
 
         Directed_Weighted_Graph grp = new Directed_Weighted_Graph(file);
-        if (grp.nodeSize() != 0 || grp.edgeSize() != 0) {
+        if (this.graph == null){
+            this.graph = new Directed_Weighted_Graph();
+            this.init(grp);
+            return true;
+        }
+        else if (grp.nodeSize() != 0 || grp.edgeSize() != 0) {
             this.init(grp);
             return true;
         }

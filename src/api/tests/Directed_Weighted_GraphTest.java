@@ -123,6 +123,10 @@ class Directed_Weighted_GraphTest {
         assertEquals(3,g1.nodeSize());
         g1.removeNode(1);
         assertEquals(2,g1.nodeSize());
+        if (g1.getEdge(0,2) != null)
+            fail();
+        if (g1.getEdge(2,0) != null)
+            fail();
     }
 
     @Test

@@ -1,7 +1,9 @@
-package api;
+package api.tests;
 
+import api.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -164,15 +166,42 @@ class Directed_Weighted_Graph_AlgorithmsTest {
          alg.init(g3);
          NodeData center2 = alg.center();
         assertEquals(40,center2.getKey());
-//        alg.init(g1000);
-//        NodeData center3 = alg.center();
-//        System.out.println(center3);
-
 
     }
 
     @Test
     void tsp() {
+        alg.init(g1);
+        List<NodeData> cities = new LinkedList<>();
+        Iterator<NodeData> itr = alg.getGraph().nodeIter();
+        List<NodeData> resCmp = new LinkedList<>();
+        while(itr.hasNext()){
+            NodeData n = itr.next();
+            cities.add(n);
+            resCmp.add(n);
+        }
+        resCmp.add(cities.get(0));
+        List<NodeData> res = alg.tsp(cities);
+        assertEquals(18,res.size());
+        for (int i = 0; i < res.size();i++){
+            if (resCmp.get(i).getKey() != res.get(i).getKey()){
+                fail("wrong path");
+            }
+        }
+
+        alg.init(g1000);
+        List<NodeData> cities2 = new LinkedList<>();
+        Iterator<NodeData> itr2 = alg.getGraph().nodeIter();
+        while(itr2.hasNext()){
+            cities2.add(itr2.next());
+        }
+        long start = System.currentTimeMillis();
+        List<NodeData> res2 = alg.tsp(cities2);
+        long delta = System.currentTimeMillis() - start;
+        System.out.println(res2 + "\n" + res2.size() + "\n" + delta);
+        //long time = 600000;
+        assert (delta < 700000);
+
     }
 
     @Test
