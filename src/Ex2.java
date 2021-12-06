@@ -47,9 +47,9 @@ public class Ex2{
         // ****** Add your code here ******
 
         Graph graph = new Graph();
-        graph.setBounds(0,0,1000,1000);
-        graph.setTitle("GRAPH");
-        graph.setVisible(true);
+        graph.start();
+
+
 
 
 

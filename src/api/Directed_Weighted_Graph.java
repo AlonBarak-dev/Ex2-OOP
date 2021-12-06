@@ -68,20 +68,20 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
         }
     }
 
-    private void ppEdge(JSONObject node) {
-        if(node != null) {
-            int src = ((Long) node.get("src")).intValue();
-            int dest = ((Long) node.get("dest")).intValue();
-            double w = (double) node.get("w");
+    private void ppEdge(JSONObject edge) {
+        if(edge != null) {
+            int src = ((Long) edge.get("src")).intValue();
+            int dest = ((Long) edge.get("dest")).intValue();
+            double w = (double) edge.get("w");
             this.connect(src, dest, w);
         }
     }
 
 
-    private void ppNode(JSONObject edge) {
-        if (edge != null) {
-            int id = ((Long) edge.get("id")).intValue();
-            String pos = (String) edge.get("pos");
+    private void ppNode(JSONObject node) {
+        if (node != null) {
+            int id = ((Long) node.get("id")).intValue();
+            String pos = (String) node.get("pos");
             Geo_Location g = new Geo_Location(pos);
             Node_Data n = new Node_Data(g, id);
             this.addNode(n);

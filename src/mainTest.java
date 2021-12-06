@@ -31,6 +31,8 @@ public class mainTest {
 //        }
 //        System.out.println(g.tsp(list));
 //
+
+        Ex2.runGUI("data/G1.json");
         System.out.println("ALL GOOD!");
 
     }
