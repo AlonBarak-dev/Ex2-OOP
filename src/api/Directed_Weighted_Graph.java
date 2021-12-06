@@ -229,9 +229,13 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
 
     @Override
     public Iterator<EdgeData> edgeIter(int node_id) {
+        if (edges.get(node_id) == null){
+            return null;
+        }
         return new Iterator<EdgeData>() {
             int mode = modeCounter;
-            Iterator<EdgeData> itr = edges.get(node_id).values().iterator();
+            final Iterator<EdgeData> itr = edges.get(node_id) != null ?  edges.get(node_id).values().iterator() : null;
+
 
             @Override
             public void remove(){
@@ -326,4 +330,33 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
     public int getMC() {
         return this.modeCounter;
     }
+
+
+
+    public Iterator<NodeData> nodeIterPrivate(){
+        return this.nodes.values().iterator();
+    }
+
+    public Iterator<EdgeData> edgeIterPrivate(int key){
+        if (this.edges.get(key) != null) {
+            return this.edges.get(key).values().iterator();
+        }
+        return null;
+    }
+
+    public Iterator<EdgeData> edgeIterPrivate() {
+        HashMap<Integer,EdgeData> tmp = new HashMap<>();
+        int key = 0;
+        for (int i = 0; i < this.nodeSize();i++){
+            Iterator<EdgeData> e = edgeIter(i);
+            while(e != null && e.hasNext()){
+                tmp.put(key,e.next());
+                key++;
+            }
+        }
+        return tmp.values().iterator();
+    }
+
+
+
 }

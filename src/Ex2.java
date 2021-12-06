@@ -46,12 +46,7 @@ public class Ex2{
         DirectedWeightedGraphAlgorithms alg = getGrapgAlgo(json_file);
         // ****** Add your code here ******
 
-        Graph graph = new Graph();
-        graph.start();
-
-
-
-
+        Graph graph = new Graph(alg);
 
 
         // ********************************
