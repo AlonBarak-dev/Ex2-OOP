@@ -19,11 +19,11 @@ import java.util.List;
 public class mainTest {
 
     public static void main(String[] args) {
-        Directed_Weighted_Graph grp = new Directed_Weighted_Graph("data/G3.json");
-
-        Directed_Weighted_Graph_Algorithms g = new Directed_Weighted_Graph_Algorithms();
-        g.init(grp);
-        System.out.println(g.center());
+//        Directed_Weighted_Graph grp = new Directed_Weighted_Graph("data/G3.json");
+//
+//        Directed_Weighted_Graph_Algorithms g = new Directed_Weighted_Graph_Algorithms();
+//        g.init(grp);
+//        System.out.println(g.center());
        //Iterator<NodeData> itr = grp.nodeIter();
 //        List<NodeData> list = new ArrayList<>();
 //        while(itr.hasNext()){
@@ -32,8 +32,8 @@ public class mainTest {
 //        System.out.println(g.tsp(list));
 //
 
-        Ex2.runGUI("data/G1.json");
-        System.out.println("ALL GOOD!");
+        //Ex2.runGUI("data/G1.json");
+        //System.out.println("ALL GOOD!");
 
     }
 }

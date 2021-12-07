@@ -164,7 +164,7 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
 
             private void checkMC() throws NoSuchElementException{
                 if(mode != modeCounter)
-                    throw new NoSuchElementException();
+                    throw new RuntimeException();
             }
         };
     }
@@ -221,7 +221,7 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
 
             private void checkMC() throws NoSuchElementException{
                 if(mode != modeCounter)
-                    throw new NoSuchElementException();
+                    throw new RuntimeException();
             }
         };
     }
@@ -267,7 +267,7 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
 
             private void checkMC() throws NoSuchElementException{
                 if(mode != modeCounter)
-                    throw new NoSuchElementException();
+                    throw new RuntimeException();
             }
         };
     }
