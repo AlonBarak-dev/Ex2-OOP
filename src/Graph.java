@@ -28,20 +28,13 @@ public class Graph implements ActionListener {
     Graph(DirectedWeightedGraphAlgorithms alg){
         graph = alg;
 
-//        JFrame frame;
-//        JMenuBar menuBar;
-//        JMenu file_menu;
-//        JMenu edit_menu;
-//        JMenu algorithm_menu;
-//        JMenu test_menu;
-//        JMenuItem save, load, add_node, add_edge, is_connected, shortest_path, tsp,remove_edge,remove_node;
+
 
         textField = new JTextField("Type Here!");
         textField.setSize(160,40);
         textField.setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3,(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.60));
 
         frame = new JFrame("My GUI");
-        //frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2,(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.80));
 
