@@ -255,7 +255,8 @@ public class Graph implements ActionListener {
                 List<NodeData> path = this.graph.tsp(cities);
                 if (path == null) {
                     JOptionPane.showMessageDialog(frame, "NO PATH BETWEEN THE CHOSEN NODES!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
-                } else {
+                }
+                else {
                     String pathStr = "";
                     for (int i = 0; i < path.size() - 1; i++) {
                         pathStr += path.get(i).getKey() + "->";
