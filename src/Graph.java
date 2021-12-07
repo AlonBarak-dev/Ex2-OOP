@@ -1,6 +1,5 @@
 //import api.DirectedWeightedGraphAlgorithms;
 import api.*;
-import org.junit.jupiter.api.condition.OS;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,8 +18,9 @@ public class Graph implements ActionListener {
     JMenu file_menu;
     JMenu edit_menu;
     JMenu algorithm_menu;
-    JMenu test_menu;
-    JMenuItem save, load, add_node, add_edge, is_connected, shortest_path, tsp,remove_edge,remove_node;
+    JMenu instructions;
+    JMenuItem save, load, add_node, add_edge, is_connected, shortest_path, tsp,remove_edge,remove_node,center;
+    JMenuItem saveIns, loadIns, add_nodeIns, add_edgeIns, is_connectedIns, shortest_pathIns, tspIns,remove_edgeIns,remove_nodeIns,centerIns;
     JTextField textField;
     CustomPaintComponent cmp;
     JOptionPane pop;
@@ -36,7 +36,7 @@ public class Graph implements ActionListener {
 //        JMenu test_menu;
 //        JMenuItem save, load, add_node, add_edge, is_connected, shortest_path, tsp,remove_edge,remove_node;
 
-        textField = new JTextField("data/G3.json");
+        textField = new JTextField("Type Here!");
         textField.setSize(160,40);
         textField.setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3,(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.60));
 
@@ -49,7 +49,7 @@ public class Graph implements ActionListener {
         file_menu = new JMenu("File");
         edit_menu = new JMenu("Edit");
         algorithm_menu = new JMenu("Algorithms");
-        test_menu = new JMenu("Test");
+        instructions = new JMenu("Instructions");
 
         save = new JMenuItem("Save");
         load = new JMenuItem("Load");
@@ -64,16 +64,31 @@ public class Graph implements ActionListener {
         is_connected = new JMenuItem("Is Connected");
         shortest_path = new JMenuItem("Shortest path");
         tsp = new JMenuItem("TSP");
-        algorithm_menu.add(is_connected); algorithm_menu.add(shortest_path); algorithm_menu.add(tsp);
+        center = new JMenuItem("Center");
+        algorithm_menu.add(is_connected); algorithm_menu.add(shortest_path); algorithm_menu.add(tsp); algorithm_menu.add(center);
 
-        menuBar.add(file_menu); menuBar.add(edit_menu); menuBar.add(algorithm_menu); menuBar.add(test_menu);
+        saveIns = new JMenuItem("SaveIns");
+        loadIns = new JMenuItem("LoadIns");
+        add_nodeIns = new JMenuItem("Add NodeIns");
+        add_edgeIns = new JMenuItem("Add EdgeIns");
+        remove_nodeIns = new JMenuItem("Remove NodeIns");
+        remove_edgeIns = new JMenuItem("Remove EdgeIns");
+        is_connectedIns = new JMenuItem("Is connectedIns");
+        shortest_pathIns = new JMenuItem("ShortestPathIns");
+        tspIns = new JMenuItem("TspIns");
+        centerIns = new JMenuItem("CenterIns");
+        instructions.add(saveIns); instructions.add(loadIns); instructions.add(add_nodeIns); instructions.add(add_edgeIns);
+        instructions.add(remove_nodeIns); instructions.add(remove_edgeIns); instructions.add(is_connectedIns); instructions.add(shortest_pathIns);
+        instructions.add(tspIns); instructions.add(centerIns);
+
+        menuBar.add(file_menu); menuBar.add(edit_menu); menuBar.add(algorithm_menu); menuBar.add(instructions);
 
 //        pop = new JOptionPane("ANSWER:");
 //        pop.
 
         frame.setJMenuBar(menuBar);
         frame.add(textField);
-
+        // actions
         load.addActionListener(this);
         save.addActionListener(this);
         add_node.addActionListener(this);
@@ -83,6 +98,18 @@ public class Graph implements ActionListener {
         is_connected.addActionListener(this);
         shortest_path.addActionListener(this);
         tsp.addActionListener(this);
+        center.addActionListener(this);
+        // instructions
+        loadIns.addActionListener(this);
+        saveIns.addActionListener(this);
+        add_nodeIns.addActionListener(this);
+        add_edgeIns.addActionListener(this);
+        remove_edgeIns.addActionListener(this);
+        remove_nodeIns.addActionListener(this);
+        is_connectedIns.addActionListener(this);
+        shortest_pathIns.addActionListener(this);
+        tspIns.addActionListener(this);
+        centerIns.addActionListener(this);
 
         cmp = new CustomPaintComponent(graph);
         frame.add(cmp);
@@ -230,13 +257,99 @@ public class Graph implements ActionListener {
                     JOptionPane.showMessageDialog(frame, "NO PATH BETWEEN THE CHOSEN NODES!", "ERROR", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     String pathStr = "";
-                    for (int i = 0; i < path.size(); i++) {
+                    for (int i = 0; i < path.size() - 1; i++) {
                         pathStr += path.get(i).getKey() + "->";
                     }
+                    pathStr += path.get(path.size()-1).getKey();
                     JOptionPane.showMessageDialog(frame, pathStr, "PATH", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }
+        if (com.equals("Center")){
+            NodeData n = this.graph.center();
+            int key = n.getKey();
+            JOptionPane.showMessageDialog(frame, "THE CENTER NODE IS: " + key, "CENTER", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        // instructions start here:
+
+        if (com.equals("SaveIns")){
+            JOptionPane.showMessageDialog(frame,"In order to save a graph do the following: \n" +
+                    "Write the path of the file you want to save into.\n" +
+                    "Go to FILE \n" +
+                    "Click on SAVE" , "HOW TO SAVE", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (com.equals("LoadIns")){
+            JOptionPane.showMessageDialog(frame,"In order to load a graph do the following: \n" +
+                    "Write the path of the file you want to load from.\n" +
+                    "Go to FILE \n" +
+                    "Click on LOAD" , "HOW TO LOAD", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (com.equals("Add NodeIns")){
+            JOptionPane.showMessageDialog(frame,"In order to add a node to the graph do the following: \n" +
+                    "Write the values of the node like this:\n" +
+                    "4,35.12,32.587,0.0 \n" +
+                    "Which will do:" +
+                    "KEY : 4, X : 35.12, Y : 32.587, Z : 0.0 \n" +
+                    "Go to EDIT \n" +
+                    "Click on ADD NODE" , "HOW TO ADD A NODE", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (com.equals("Add EdgeIns")){
+            JOptionPane.showMessageDialog(frame,"In order to add an edge to the graph do the following: \n" +
+                    "Write the values of the edge like this:\n" +
+                    "2,10 \n" +
+                    "Which will do:" +
+                    "SRC : 2, DEST : 10 \n" +
+                    "Go to EDIT \n" +
+                    "Click on ADD EDGE" , "HOW TO ADD AN EDGE", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (com.equals("Remove NodeIns")){
+            JOptionPane.showMessageDialog(frame,"In order to remove a node from the graph do the following: \n" +
+                    "Write the key of the node like this:\n" +
+                    "17 \n" +
+                    "Which will do:" +
+                    "KEY : 17 \n" +
+                    "Go to EDIT \n" +
+                    "Click on REMOVE NODE" , "HOW TO REMOVE A NODE", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (com.equals("Remove EdgeIns")){
+            JOptionPane.showMessageDialog(frame,"In order to remove an edge from the graph do the following: \n" +
+                    "Write the values of the edge like this:\n" +
+                    "2,10 \n" +
+                    "Which will do:" +
+                    "SRC : 2, DEST : 10 \n" +
+                    "Go to EDIT \n" +
+                    "Click on REMOVE EDGE" , "HOW TO REMOVE AN EDGE", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (com.equals("Is connectedIns")){
+            JOptionPane.showMessageDialog(frame,"In order to check if the graph is connected do the following: \n" +
+                    "Go to ALGORITHMS \n" +
+                    "Click on IS CONNECTED" , "IS CONNECTED:", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (com.equals("ShortestPathIns")){
+            JOptionPane.showMessageDialog(frame,"In order to calculate the shortest path from src to dest do the following: \n" +
+                    "Write the values of the nodes like this:\n" +
+                    "2,10 \n" +
+                    "Which will do:" +
+                    "SRC : 2, DEST : 10 \n" +
+                    "Go to ALGORITHMS \n" +
+                    "Click on SHORTEST PATH" , "FIND SHORTEST PATH", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (com.equals("TspIns")){
+            JOptionPane.showMessageDialog(frame,"In order to calculate the a TSP of nodes do the following: \n" +
+                    "Write the values of the nodes like this:\n" +
+                    "2,10,4,17,8,9,5 \n" +
+                    "Which will do:" +
+                    "CITIES: 2 , 10 , 4 , 17 , 8 , 9 , 5 \n" +
+                    "Go to ALGORITHMS \n" +
+                    "Click on TSP" , "FIND TSP", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (com.equals("CenterIns")){
+            JOptionPane.showMessageDialog(frame,"In order to find the center node do the following: \n" +
+                    "Go to ALGORITHMS \n" +
+                    "Click on CENTER" , "FIND THE CENTER NODE", JOptionPane.INFORMATION_MESSAGE);
+        }
+
 
     }
 
@@ -293,6 +406,7 @@ public class Graph implements ActionListener {
                 GeoLocation src = DW.getNode(edge.getSrc()).getLocation();
                 GeoLocation dest = DW.getNode(edge.getDest()).getLocation();
                 g2d.drawLine((int)algoX(src.x()), (int)algoY(src.y()), (int)algoX(dest.x()), (int)algoY(dest.y()));
+                //g2d.drawString("|",(int)algoX(dest.x()),(int)algoY(dest.y()));
             }
         }
         public double algoX(double x) {

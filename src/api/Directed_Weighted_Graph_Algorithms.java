@@ -246,6 +246,7 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
 
         NodeData v = city.get(0);       // start node
         list.add(v);
+        v.setTag(1);
         while(!allVisit(city)){
 
             NodeData u = minShortestPath(v.getKey());       // return the closest unvisited node
