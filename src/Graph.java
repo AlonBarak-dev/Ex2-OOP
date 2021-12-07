@@ -385,7 +385,7 @@ public class Graph implements ActionListener {
                 g2d.setColor(Color.RED);
                 int nodesize = 12;
                 g2d.fillOval((int)algoX(loc.x()) - (nodesize /2) , (int)algoY(loc.y()) - (nodesize /2), nodesize, nodesize);
-                g2d.setColor(Color.black);
+                g2d.setColor(Color.blue);
                 int offset = 15;
                 g2d.drawString(""+node.getKey(),(int)algoX(loc.x()) - (nodesize /2) + offset,(int)algoY(loc.y()) - (nodesize /2) + offset + 8);
             }
@@ -399,7 +399,28 @@ public class Graph implements ActionListener {
                 EdgeData edge = it.next();
                 GeoLocation src = DW.getNode(edge.getSrc()).getLocation();
                 GeoLocation dest = DW.getNode(edge.getDest()).getLocation();
-                g2d.drawLine((int)algoX(src.x()), (int)algoY(src.y()), (int)algoX(dest.x()), (int)algoY(dest.y()));
+                int x1 = (int)algoX(src.x());
+                int y1 = (int)algoY(src.y());
+                int x2 = (int)algoX(dest.x());
+                int y2 = (int)algoY(dest.y());
+                g2d.drawLine(x1, y1, x2, y2);
+                int dx = x2 - x1, dy = y2 - y1;
+                double D = Math.sqrt(dx*dx + dy*dy);
+                double xm = D - 15, xn = xm, ym = 10, yn = - 10, x;
+                double sin = dy / D, cos = dx / D;
+
+                x = xm*cos - ym*sin + x1;
+                ym = xm*sin + ym*cos + y1;
+                xm = x;
+
+                x = xn*cos - yn*sin + x1;
+                yn = xn*sin + yn*cos + y1;
+                xn = x;
+
+                int[] xpoints = {x2, (int) xm, (int) xn};
+                int[] ypoints = {y2, (int) ym, (int) yn};
+
+                g2d.fillPolygon(xpoints,ypoints,3);
                 //g2d.drawString("|",(int)algoX(dest.x()),(int)algoY(dest.y()));
             }
         }
