@@ -166,10 +166,69 @@ This particular class helps us to represent a directed (positive) Weighted Graph
 ```
 
 ---
-### 6. GUI - Instructurs
+## 6. GUI - Instructurs
+
+- **Briefly explanation on the GUI:** <br>This application represent the graph in a visual way, which also support the algorithms of the project.
+## - Main Frame examples: <br>
+   ![image](https://user-images.githubusercontent.com/79144622/145277252-32436036-a909-4cd3-ab43-1d836cd1af0e.png) <br>
+   ![mainScreen](https://user-images.githubusercontent.com/79144622/145277400-ae9b075f-e9cd-4560-9c3f-717e9eb2d135.png)
+## - File Screen : <br>
+  - This menu allow users to save and load files such as G1.json.
+  - By clicking on one of the options in the menu it will open the files broswer of the computer which allow the user to choose the desired file. <br>
+    ![fileScreen](https://user-images.githubusercontent.com/79144622/145277866-130d8d84-4973-4db5-9110-3c33e7a80624.png) <br>
+  - Example of Loading file : <br>
+    ![exampleOfLoad](https://user-images.githubusercontent.com/79144622/145278688-4997dc91-5f69-4a33-8276-3edb239a9af9.png) <br>
+## - Edit Screen : <br>
+   - This menu allow users to edit the graph by the following actions: <br>
+      - ADD NODE <br>
+      - ADD EDGE <br>
+      - REMOVE NODE <br>
+      - REMOVE EDGE <br>
+     ![EditScreen](https://user-images.githubusercontent.com/79144622/145279379-17bf32ab-14d2-486d-8390-9cfa6a37896b.png) <br>
+    - Examples : <br>
+     ![exampleOfAddNode](https://user-images.githubusercontent.com/79144622/145278794-241f5e91-24ce-42bd-95e1-f041f496047e.png) <br>
+     
+     ![exampleOfAddEdge](https://user-images.githubusercontent.com/79144622/145278819-4f13176c-2697-4cc3-af41-66f20df3c353.png) <br>
+## - Algorithms Screen : <br>
+   ![algorithmsScreen](https://user-images.githubusercontent.com/79144622/145279446-d7a698a2-3f91-4d84-9e6c-7573cd8165e5.png) <br>
+   
+   - This menu allow the users to run different algorithms on the graph, such as: <br>
+      - IS CONNECTED <br>
+        ![isConnectedScreen](https://user-images.githubusercontent.com/79144622/145279889-2a976853-e1cd-41c0-bba8-f6f849b0b17d.png) <br> 
+      - SHORTEST PATH <br>
+      - TSP <br>
+        ![TSPscreen](https://user-images.githubusercontent.com/79144622/145280026-a06ef1c6-c31c-427a-811d-c9bacb6f313d.png) <br> 
+      - CENTER <br>
+        ![Centerscreen](https://user-images.githubusercontent.com/79144622/145280102-b5c7d79c-8aae-4fb8-b2cf-3393117c0adc.png) <br>
+
+## - Instructions Screen : <br>
+   - This menu simplify the use of the GUI to the user by giving simple instructions on each method in the GUI. <br>
+   - If the user dont know how to run a spesific method, he can search the instructions in the instructions menu. <br>
+   - ![instructionsScreen](https://user-images.githubusercontent.com/79144622/145281162-f59826ca-78f4-46db-8a09-6a1e43eecc30.png) <br>
+    - Examples : <br>
+         ![instructionExampleScreen2](https://user-images.githubusercontent.com/79144622/145281213-34eafe93-72c3-4344-bac8-708615ad5bd0.png) <br>
+         <br>
+         ![instructionExampleScreen](https://user-images.githubusercontent.com/79144622/145281261-c85080ab-3746-411e-86a4-fd23f99ddd35.png) <br>
+         
+   - **Use the text box in the right corner to write the values as requested in each method!** <br>
+
 
 ---
-### 7. How to run the Jar file
+### 7. How to run the Jar file <br>
+
+   - In this section we will explain how to run the JAR file in your computer. <br>
+   - First, make sure you downloaded the jar file to your computer: <br>
+   - Go to OUT -> go to artifacts -> go to Ex2_jar -> Ex2.jar is the file. <br>
+   - Later, open the command line in the folder that consists the following: <br>
+      - Ex2.jar file <br>
+      - The file of the init building you wish to run from the command line <br>
+   - finally, do the following: <br>
+      - write in the cmd line : java -jar Ex2.jar "the name of the desired init file (json)" <br>
+      - For example: java -jar Ex2.jar G1.json <br>
+        ![jarRun](https://user-images.githubusercontent.com/79144622/145284243-11b80cb8-71c3-41fa-8d7a-79099f00bf52.png) <br>
+        <br>
+        ![jarRun2](https://user-images.githubusercontent.com/79144622/145284273-f4194a95-a6c6-4adc-80f8-6bc686912912.png) <br>
+
 
 
 
