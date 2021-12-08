@@ -38,11 +38,11 @@ Projects we thought might be helpful for this assignment: <br>
    6. GUI - Instrocturs
    7. How to run the Jar file
 ---
-### 3. How to download and install the project (on Intellij workspace): <br>
-#### - Install JSON support file :  JSON-simple-1.1.Jar <br>
-         - Link to the download site : http://www.java2s.com/Code/Jar/j/Downloadjsonsimple11jar.htm <br>
-     - Add the jar file to the path of the project on intellij: <br>
-         - Go to File -> Go to project structure -> Go to Moudels -> Click on '+' -> Add the JSON-SIMPLE-1.1.JAR file to the path. <br>
+### 3. How to download and install the project (on Intellij workspace): 
+- Install JSON support file :  JSON-simple-1.1.Jar 
+- Link to the download site : http://www.java2s.com/Code/Jar/j/Downloadjsonsimple11jar.htm 
+- Add the jar file to the path of the project on intellij: 
+- Go to File -> Go to project structure -> Go to Moudels -> Click on '+' -> Add the JSON-SIMPLE-1.1.JAR file to the path. 
 ---
 ### 4. Explanation on our project classes
 #### <br>4.1 Geo_Location:
