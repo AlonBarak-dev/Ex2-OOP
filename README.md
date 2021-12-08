@@ -1,7 +1,5 @@
 # Ex2-OOP <br>
 <br>
-<br>
-<br>
 
 Prof. Boaz Ben Moshe <br>
 Submitted by : <br>
@@ -19,7 +17,7 @@ Projects we thought might be helpful for this assignment: <br>
    - https://www.geeksforgeeks.org/check-if-a-directed-graph-is-connected-or-not/ <br>
    - https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm <br>
    - https://en.wikipedia.org/wiki/Depth-first_search <br>
-
+---
 ### 2. Table of contents
    1. Main page
    2. Table of contents
@@ -42,7 +40,7 @@ Projects we thought might be helpful for this assignment: <br>
 - Install JSON support file :  JSON-simple-1.1.Jar 
 - Link to the download site : http://www.java2s.com/Code/Jar/j/Downloadjsonsimple11jar.htm 
 - Add the jar file to the path of the project on intellij: 
-- Go to File -> Go to project structure -> Go to Moudels -> Click on '+' -> Add the JSON-SIMPLE-1.1.JAR file to the path. 
+- Go to File ⮕ Go to project structure ⮕ Go to Moudels ⮕ Click on '+' ⮕ Add the JSON-SIMPLE-1.1.JAR file to the path. 
 ---
 ### 4. Explanation on our project classes
 #### <br>4.1 Geo_Location:
@@ -181,16 +179,16 @@ This particular class helps us to represent a directed (positive) Weighted Graph
 ## 6. GUI - Instructurs
 
 - **Briefly explanation on the GUI:** <br>This application represent the graph in a visual way, which also support the algorithms of the project.
-## - Main Frame examples: <br>
+### - Main Frame examples: <br>
    ![image](https://user-images.githubusercontent.com/79144622/145277252-32436036-a909-4cd3-ab43-1d836cd1af0e.png) <br>
    ![mainScreen](https://user-images.githubusercontent.com/79144622/145277400-ae9b075f-e9cd-4560-9c3f-717e9eb2d135.png)
-## - File Screen : <br>
+### - File Screen : <br>
   - This menu allow users to save and load files such as G1.json.
   - By clicking on one of the options in the menu it will open the files broswer of the computer which allow the user to choose the desired file. <br>
     ![fileScreen](https://user-images.githubusercontent.com/79144622/145277866-130d8d84-4973-4db5-9110-3c33e7a80624.png) <br>
   - Example of Loading file : <br>
     ![exampleOfLoad](https://user-images.githubusercontent.com/79144622/145278688-4997dc91-5f69-4a33-8276-3edb239a9af9.png) <br>
-## - Edit Screen : <br>
+### - Edit Screen : <br>
    - This menu allow users to edit the graph by the following actions: <br>
       - ADD NODE <br>
       - ADD EDGE <br>
@@ -201,7 +199,7 @@ This particular class helps us to represent a directed (positive) Weighted Graph
      ![exampleOfAddNode](https://user-images.githubusercontent.com/79144622/145278794-241f5e91-24ce-42bd-95e1-f041f496047e.png) <br>
      
      ![exampleOfAddEdge](https://user-images.githubusercontent.com/79144622/145278819-4f13176c-2697-4cc3-af41-66f20df3c353.png) <br>
-## - Algorithms Screen : <br>
+### - Algorithms Screen : <br>
    ![algorithmsScreen](https://user-images.githubusercontent.com/79144622/145279446-d7a698a2-3f91-4d84-9e6c-7573cd8165e5.png) <br>
    
    - This menu allow the users to run different algorithms on the graph, such as: <br>
@@ -213,7 +211,7 @@ This particular class helps us to represent a directed (positive) Weighted Graph
       - CENTER <br>
         ![Centerscreen](https://user-images.githubusercontent.com/79144622/145280102-b5c7d79c-8aae-4fb8-b2cf-3393117c0adc.png) <br>
 
-## - Instructions Screen : <br>
+### - Instructions Screen : <br>
    - This menu simplify the use of the GUI to the user by giving simple instructions on each method in the GUI. <br>
    - If the user dont know how to run a spesific method, he can search the instructions in the instructions menu. <br>
    - ![instructionsScreen](https://user-images.githubusercontent.com/79144622/145281162-f59826ca-78f4-46db-8a09-6a1e43eecc30.png) <br>
@@ -229,8 +227,8 @@ This particular class helps us to represent a directed (positive) Weighted Graph
 ### 7. How to run the Jar file <br>
 
    - In this section we will explain how to run the JAR file in your computer. <br>
-   - First, make sure you downloaded the jar file to your computer: <br>
-   - Go to OUT -> go to artifacts -> go to Ex2_jar -> Ex2.jar is the file. <br>
+   - First, make sure you have downloaded the jar file to your computer: <br>
+   - Go to OUT ⮕ go to artifacts ⮕ go to Ex2_jar ⮕ Ex2.jar is the file. <br>
    - Later, open the command line in the folder that consists the following: <br>
       - Ex2.jar file <br>
       - The file of the init building you wish to run from the command line <br>
@@ -240,6 +238,15 @@ This particular class helps us to represent a directed (positive) Weighted Graph
         ![jarRun](https://user-images.githubusercontent.com/79144622/145284243-11b80cb8-71c3-41fa-8d7a-79099f00bf52.png) <br>
         <br>
         ![jarRun2](https://user-images.githubusercontent.com/79144622/145284273-f4194a95-a6c6-4adc-80f8-6bc686912912.png) <br>
+
+
+---
+### 8. UML Diagram: 
+
+
+![Ex2_OOP_UML](https://user-images.githubusercontent.com/79144622/145305059-beeb6a0b-e618-4676-8c5e-855db79dd12b.png) 
+
+---
 
 
 
