@@ -267,6 +267,9 @@ public class Graph implements ActionListener {
                 else {
                     String pathStr = "";
                     for (int i = 0; i < path.size() - 1; i++) {
+                        if (i % 15 == 0 && i != 0){
+                            pathStr += "\n";
+                        }
                         pathStr += path.get(i).getKey() + "->";
                     }
                     pathStr += path.get(path.size()-1).getKey();
