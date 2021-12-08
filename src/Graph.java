@@ -426,7 +426,7 @@ public class Graph implements ActionListener {
                 g2d.drawLine(x1, y1, x2, y2);
                 int dx = x2 - x1, dy = y2 - y1;
                 double D = Math.sqrt(dx*dx + dy*dy);
-                double xm = D - 15, xn = xm, ym = 10, yn = - 10, x;
+                double xm = D - 10, xn = xm, ym = 7, yn = - 7, x;
                 double sin = dy / D, cos = dx / D;
 
                 x = xm*cos - ym*sin + x1;
