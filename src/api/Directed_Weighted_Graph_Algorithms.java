@@ -12,6 +12,7 @@ import java.util.*;
 public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraphAlgorithms{
 
     private DirectedWeightedGraph graph;
+    private DirectedWeightedGraph copy;
     public static List<NodeData> list;
     public static List<NodeData> city;
 
@@ -23,6 +24,7 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
     @Override
     public void init(DirectedWeightedGraph g) {
         this.graph = new Directed_Weighted_Graph(g);
+        this.copy = null;
     }
 
     @Override
@@ -43,7 +45,7 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
         NodeData v = this.graph.nodeIter().next();     // random vertex
 
         // run DFS starting at v
-        this.DFS(this.graph, v, visited);
+        this.DFS2(0, v, visited);
 
         // if DFS traversal doesn't visit all vertices
         // then the graph is not connected, return false
@@ -54,22 +56,21 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
 
         Arrays.fill(visited, false);        // reset the array for the second DFS
 
-        Directed_Weighted_Graph copy = new Directed_Weighted_Graph();
-
-        Iterator<NodeData> itrn = this.graph.nodeIter();
+        copy = new Directed_Weighted_Graph();
+        Iterator<NodeData> itrn = graph.nodeIter();
 
         while(itrn.hasNext()){      // copy the nodes
             copy.addNode(itrn.next());
         }
 
-        Iterator<EdgeData> itre = this.graph.edgeIter();
+        Iterator<EdgeData> itre = graph.edgeIter();
         while(itre.hasNext()){      // copy the edges and reverse them
             EdgeData e = itre.next();
             copy.connect(e.getDest(), e.getSrc(),e.getWeight());  // reversed edge
         }
 
         // run DFS on the transformed graph
-        this.DFS(copy,v,visited);
+        this.DFS2(1,v,visited);
 
         // if DFS traversal doesn't visit all vertices
         // then the graph is not connected, return false
@@ -81,19 +82,54 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
         return true;
     }
 
-    private void DFS(DirectedWeightedGraph graph, NodeData v, boolean[] visited) {
+    private void DFS(int graph, NodeData v, boolean[] visited) {
         // visited the vertex v
         visited[v.getKey() % visited.length] = true;
         // iterator on the adj of v
-        Iterator<EdgeData> itr = graph.edgeIter(v.getKey());
-
+        //Directed_Weighted_Graph copy = (Directed_Weighted_Graph) graph;
+        Iterator<EdgeData> itr;
+        if (graph == 0) {
+            itr = this.graph.edgeIter(v.getKey());
+        }
+        else {
+            itr = this.copy.edgeIter(v.getKey());
+        }
         // do so for every edge who adj to v
         while(itr.hasNext()) {
             int u = itr.next().getDest();
-            if (!visited[u % visited.length]) {
-                DFS(graph, graph.getNode(u), visited);
+            if (!visited[u % visited.length] && graph == 0) {
+                DFS(graph, this.graph.getNode(u), visited);
+            }
+            else if (!visited[u % visited.length] && graph == 1){
+                DFS(graph, this.copy.getNode(u), visited);
             }
         }
+    }
+
+    private void DFS2(int graph, NodeData v, boolean[] visited){
+        Stack<NodeData> s = new Stack<>();
+        s.push(v);
+
+        while(!s.isEmpty()){
+            v = s.peek();
+            s.pop();
+            visited[v.getKey() % visited.length] = true;
+            Iterator<NodeData> itr;
+            if (graph == 1){
+                itr = this.copy.nodeIter();
+            }
+            else{
+                itr = this.graph.nodeIter();
+            }
+            while(itr.hasNext()){
+                NodeData n = itr.next();
+                if (!visited[n.getKey() % visited.length]){
+                    s.push(n);
+                    visited[n.getKey() % visited.length] = true;
+                }
+            }
+        }
+
     }
 
     @Override
@@ -213,19 +249,85 @@ public class Directed_Weighted_Graph_Algorithms implements DirectedWeightedGraph
         return this.graph.getNode(chosenNode);
     }
 
-    private double maxShortestPath(int src){
-        double maxSP = 0;
-        Iterator<NodeData> itr = this.graph.nodeIter();
-        while(itr.hasNext()){
-            NodeData n = itr.next();
-            if (n.getKey() != src) {
-                double sp = this.shortestPathDist(src, n.getKey());
-                if (sp > maxSP)
-                    maxSP = sp;
+
+    private double maxShortestPath(int key){
+        Map<NodeData, NodeWrap<NodeData>> nodeWrappers = new HashMap<>();
+        PriorityQueue<NodeWrap<NodeData>> queue = new PriorityQueue<>();
+        Set<NodeData> shortestPathFound = new HashSet<>();
+        NodeData src = this.graph.getNode(key);
+
+        // Add src Node to queue
+        NodeWrap<NodeData> sourceWrapper = new NodeWrap<>(src,0.0,null);
+        nodeWrappers.put(src, sourceWrapper);
+        queue.add(sourceWrapper);
+
+        while(!queue.isEmpty()){
+            NodeWrap<NodeData> nodeWrapper = queue.poll();
+            NodeData node = nodeWrapper.getNode();
+            shortestPathFound.add(node);
+
+
+            // Iterate over all neighbors
+            Set<NodeData> neighbors = new HashSet<>();
+            Iterator<EdgeData> itr = this.graph.edgeIter(node.getKey());
+            while(itr.hasNext()){
+                NodeData neighbor = this.graph.getNode(itr.next().getDest());
+                neighbors.add(neighbor);
+            }
+            for (NodeData neighber : neighbors){
+                // Ignore neighbor if shortest path already found
+                if (shortestPathFound.contains(neighber))
+                    continue;
+
+                double distance = this.graph.getEdge(node.getKey(),neighber.getKey()).getWeight();
+                double totalDistance = nodeWrapper.getTotalDistance() + distance;
+                // if the neighbor not discovered yet
+                NodeWrap<NodeData> neighborWrapper = nodeWrappers.get(neighber);
+                if (neighborWrapper == null){
+                    neighborWrapper = new NodeWrap<>(neighber,totalDistance,nodeWrapper);
+                    nodeWrappers.put(neighber,neighborWrapper);
+                    queue.add(neighborWrapper);
+                }
+                // neighbor discovered, but total distance via current node i shorter?
+                // --> update total distance and predecessor
+                else if (totalDistance < neighborWrapper.getTotalDistance()){
+                    neighborWrapper.setTotalDistance(totalDistance);
+                    neighborWrapper.setPredecessor(nodeWrapper);
+
+                    queue.remove(neighborWrapper);
+                    queue.add(neighborWrapper);
+                }
+
+            }
+
+        }
+
+        double maxPath = Integer.MIN_VALUE;
+        for(int i = 0; i< nodeWrappers.size();i++){
+            NodeData n  = this.graph.getNode(i);
+            double path = nodeWrappers.get(n).getTotalDistance();
+            if (path > maxPath){
+                maxPath = path;
             }
         }
-        return maxSP;
+        return maxPath;
+
     }
+
+
+//    private double maxShortestPath(int src){
+//        double maxSP = 0;
+//        Iterator<NodeData> itr = this.graph.nodeIter();
+//        while(itr.hasNext()){
+//            NodeData n = itr.next();
+//            if (n.getKey() != src) {
+//                double sp = this.shortestPathDist(src, n.getKey());
+//                if (sp > maxSP)
+//                    maxSP = sp;
+//            }
+//        }
+//        return maxSP;
+//    }
 
     @Override
     public List<NodeData> tsp(List<NodeData> cities) {      // TO DO - SALESMAN PROBLEM

@@ -32,7 +32,7 @@ public class mainTest {
 //        System.out.println(g.tsp(list));
 //
 
-        Ex2.runGUI("data/G1.json");
+        Ex2.runGUI("data/1000Nodes.json");
         //System.out.println("ALL GOOD!");
 
     }
