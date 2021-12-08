@@ -237,6 +237,9 @@ public class Graph implements ActionListener {
                 } else {
                     String pathStr = "";
                     for (int i = 0; i < path.size(); i++) {
+                        if (i % 15 == 0 && i != 0){
+                            pathStr += "\n";
+                        }
                         pathStr += path.get(i).getKey() + "->";
                     }
                     JOptionPane.showMessageDialog(frame, pathStr, "PATH", JOptionPane.INFORMATION_MESSAGE);
