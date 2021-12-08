@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -120,13 +122,23 @@ public class Graph implements ActionListener {
         String com = e.getActionCommand();
         if(com.equals("Save")){
             //frame.add(textField);
-            String file = textField.getText();
-            graph.save(file);
+//            String file = textField.getText();
+//            Path p = Paths.get(file);
+//            graph.save(p.toString());
+            JFileChooser fileChooser = new JFileChooser("C:");
+            fileChooser.showSaveDialog(null);
+            String path = fileChooser.getSelectedFile().getAbsolutePath();
+            graph.save(path);
             System.out.println("work");
         }
         if (com.equals("Load")){
-            String file = textField.getText();
-            graph.load(file);
+//            String file = textField.getText();
+//            Path p = Paths.get(file);
+//            graph.load(p.toString());
+            JFileChooser fileChooser = new JFileChooser("C:");
+            fileChooser.showSaveDialog(null);
+            String path = fileChooser.getSelectedFile().getAbsolutePath();
+            this.graph.load(path);
             frame.remove(cmp);
             CustomPaintComponent newCmp = new CustomPaintComponent(graph);
             frame.add(newCmp);
@@ -269,15 +281,17 @@ public class Graph implements ActionListener {
 
         if (com.equals("SaveIns")){
             JOptionPane.showMessageDialog(frame,"In order to save a graph do the following: \n" +
-                    "Write the path of the file you want to save into.\n" +
                     "Go to FILE \n" +
-                    "Click on SAVE" , "HOW TO SAVE", JOptionPane.INFORMATION_MESSAGE);
+                    "Click on SAVE \n" +
+                    "Go to the wanted path in the file browser\n" +
+                    "Click on save" , "HOW TO SAVE", JOptionPane.INFORMATION_MESSAGE);
         }
         if (com.equals("LoadIns")){
             JOptionPane.showMessageDialog(frame,"In order to load a graph do the following: \n" +
-                    "Write the path of the file you want to load from.\n" +
                     "Go to FILE \n" +
-                    "Click on LOAD" , "HOW TO LOAD", JOptionPane.INFORMATION_MESSAGE);
+                    "Click on LOAD\n" +
+                    "Go to the wanted path in the file browser\n" +
+                    "Click on Load" , "HOW TO LOAD", JOptionPane.INFORMATION_MESSAGE);
         }
         if (com.equals("Add NodeIns")){
             JOptionPane.showMessageDialog(frame,"In order to add a node to the graph do the following: \n" +
@@ -291,9 +305,9 @@ public class Graph implements ActionListener {
         if (com.equals("Add EdgeIns")){
             JOptionPane.showMessageDialog(frame,"In order to add an edge to the graph do the following: \n" +
                     "Write the values of the edge like this:\n" +
-                    "2,10 \n" +
+                    "2,10,5.2 \n" +
                     "Which will do:" +
-                    "SRC : 2, DEST : 10 \n" +
+                    "SRC : 2, DEST : 10, WEIGHT : 5.2 \n" +
                     "Go to EDIT \n" +
                     "Click on ADD EDGE" , "HOW TO ADD AN EDGE", JOptionPane.INFORMATION_MESSAGE);
         }
