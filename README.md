@@ -1,13 +1,24 @@
-# Ex2-OOP
-Prof. Boaz Ben Moshe
-<br>Alon Barak - 213487598
-<br>Omer Adar - 325022952
-<br>This repository represent an assignment in OOP course.
-<br>Design and implementation of a directed and weighted graphs - Java
+# Ex2-OOP <br>
+<br>
+<br>
+<br>
+
+Prof. Boaz Ben Moshe <br>
+Submitted by : <br>
+   <br> Alon Barak - 213487598
+   <br> Omer Adar - 325022952
+   <br>
+<br> This repository represent an assignment in OOP course.
+<br> Design and implementation of a directed and weighted graphs - Java
 ---
 ### 1. Main page
 #### Literature review:
-Projects we thought might be helpful for this assignment:
+Projects we thought might be helpful for this assignment: <br>
+   - https://en.wikipedia.org/wiki/Directed_graph <br>
+   - https://en.wikipedia.org/wiki/Travelling_salesman_problem <br>
+   - https://www.geeksforgeeks.org/check-if-a-directed-graph-is-connected-or-not/ <br>
+   - https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm <br>
+   - https://en.wikipedia.org/wiki/Depth-first_search <br>
 
 ### 2. Table of contents
    1. Main page
@@ -27,10 +38,11 @@ Projects we thought might be helpful for this assignment:
    6. GUI - Instrocturs
    7. How to run the Jar file
 ---
-### 3. How to download and install the project (on IntelliJ workspace):
-#### - Install JSON support file :  JSON-simple-1.1.Jar
-   -
-     - 
+### 3. How to download and install the project (on Intellij workspace): <br>
+#### - Install JSON support file :  JSON-simple-1.1.Jar <br>
+         - Link to the download site : http://www.java2s.com/Code/Jar/j/Downloadjsonsimple11jar.htm <br>
+     - Add the jar file to the path of the project on intellij: <br>
+         - Go to File -> Go to project structure -> Go to Moudels -> Click on '+' -> Add the JSON-SIMPLE-1.1.JAR file to the path. <br>
 ---
 ### 4. Explanation on our project classes
 #### <br>4.1 Geo_Location:
