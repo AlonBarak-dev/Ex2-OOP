@@ -33,8 +33,10 @@ Projects we thought might be helpful for this assignment: <br>
       <br>5.2 Shortest_Path
       <br>5.3 Center
       <br>5.4 TSP
+      <br>5.5 Tests
    6. GUI - Instrocturs
    7. How to run the Jar file
+   8. UML Diagram
 ---
 ### 3. How to download and install the project (on Intellij workspace): 
 - Install JSON support file :  JSON-simple-1.1.Jar 
@@ -174,6 +176,29 @@ This particular class helps us to represent a directed (positive) Weighted Graph
  }
 6. return List
 ```
+#### <br>5.5 Tests:
+- **This section represnt the times for each algorithm base on the number of the nodes.** <br>
+- **For graphs under 100 Nodes:** <br>
+   - Is connected: 1-2 seconds. <br>
+   - Shortest Path: 1-2 seconds. <br>
+   - TSP: 1-2 seconds. <br>
+   - Center: 1-2 seconds. <br>
+- **For graphs with up to 1000 Nodes:** <br>
+   - Is connected: 3-5 seconds. <br>
+   - Shortest Path: 1-3 seconds. <br>
+   - TSP: 1-3 seconds. <br>
+   - Center: 10-20 seconds. <br>
+- **For graphs with up to 10000 Nodes:** <br>
+   - Is connected: 10-20 seconds. <br>
+   - Shortest Path: 5-10 seconds. <br>
+   - TSP: 5-10 seconds. <br>
+   - Center: 5-8 minutes. <br>
+- **For graphs with up to 100000:** <br>
+   - Is connected: 1-3 minutes. <br>
+   - Shortest Path: 1-2 minutes. <br>
+   - TSP: 1-2 minutes. <br>
+   - Center: 10-20 minutes. <br>
+
 
 ---
 ## 6. GUI - Instructurs
