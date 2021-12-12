@@ -23,18 +23,10 @@ public class Graph implements ActionListener {
     JMenu instructions;
     JMenuItem save, load, add_node, add_edge, is_connected, shortest_path, tsp,remove_edge,remove_node,center;
     JMenuItem saveIns, loadIns, add_nodeIns, add_edgeIns, is_connectedIns, shortest_pathIns, tspIns,remove_edgeIns,remove_nodeIns,centerIns;
-    JTextField textField;
     CustomPaintComponent cmp;
-    JOptionPane pop;
 
     Graph(DirectedWeightedGraphAlgorithms alg){
         graph = alg;
-
-
-//
-//        textField = new JTextField("Type Here!");
-//        textField.setSize(160,40);
-//        textField.setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3,(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.60));
 
         frame = new JFrame("My GUI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,11 +70,9 @@ public class Graph implements ActionListener {
 
         menuBar.add(file_menu); menuBar.add(edit_menu); menuBar.add(algorithm_menu); menuBar.add(instructions);
 
-//        pop = new JOptionPane("ANSWER:");
-//        pop.
+
 
         frame.setJMenuBar(menuBar);
-        frame.add(textField);
         // actions
         load.addActionListener(this);
         save.addActionListener(this);
@@ -121,10 +111,6 @@ public class Graph implements ActionListener {
 
         String com = e.getActionCommand();
         if(com.equals("Save")){
-            //frame.add(textField);
-//            String file = textField.getText();
-//            Path p = Paths.get(file);
-//            graph.save(p.toString());
             JFileChooser fileChooser = new JFileChooser("C:");
             fileChooser.showSaveDialog(null);
             String path = fileChooser.getSelectedFile().getAbsolutePath();
@@ -132,9 +118,6 @@ public class Graph implements ActionListener {
             System.out.println("work");
         }
         if (com.equals("Load")){
-//            String file = textField.getText();
-//            Path p = Paths.get(file);
-//            graph.load(p.toString());
             JFileChooser fileChooser = new JFileChooser("C:");
             fileChooser.showSaveDialog(null);
             String path = fileChooser.getSelectedFile().getAbsolutePath();
