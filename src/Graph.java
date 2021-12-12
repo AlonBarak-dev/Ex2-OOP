@@ -31,10 +31,10 @@ public class Graph implements ActionListener {
         graph = alg;
 
 
-
-        textField = new JTextField("Type Here!");
-        textField.setSize(160,40);
-        textField.setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3,(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.60));
+//
+//        textField = new JTextField("Type Here!");
+//        textField.setSize(160,40);
+//        textField.setLocation((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()/3,(int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.60));
 
         frame = new JFrame("My GUI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -148,7 +148,8 @@ public class Graph implements ActionListener {
         }
         if (com.equals("Add Node")){
             // input should look like this: 10,35.1215,53.1288,0.0
-            String input = textField.getText();
+            String input = JOptionPane.showInputDialog(frame,"Please enter the Node values like this : \n" +
+                    "Key,X,Y,Z");
             String[] values = input.split(",");
             int newKey = Integer.parseInt(values[0]);
             double x = Double.parseDouble(values[1]);
@@ -168,7 +169,8 @@ public class Graph implements ActionListener {
         }
         if (com.equals("Remove Node")){
             // input should look like this: 5
-            String input = textField.getText();
+            String input = JOptionPane.showInputDialog(frame,"Please enter the Node key like this : \n" +
+                    "Key");
             int key = Integer.parseInt(input);
             DirectedWeightedGraph newGraph = graph.getGraph();
             newGraph.removeNode(key);
@@ -182,7 +184,8 @@ public class Graph implements ActionListener {
         }
         if(com.equals("Add Edge")){
             // input should look like this: 0,5,2.5
-            String input = textField.getText();
+            String input = JOptionPane.showInputDialog(frame,"Please enter the Edge values like this : \n" +
+                    "SRC,DEST,WEIGHT");
             String[] values = input.split(",");
             int src = Integer.parseInt(values[0]);
             int dest = Integer.parseInt(values[1]);
@@ -199,7 +202,8 @@ public class Graph implements ActionListener {
         }
         if (com.equals("Remove Edge")){
             // input should look like this: 0,5
-            String input = textField.getText();
+            String input = JOptionPane.showInputDialog(frame,"Please enter the Edge values like this : \n" +
+                    "SRC,DEST");
             String[] values = input.split(",");
             int src = Integer.parseInt(values[0]);
             int dest = Integer.parseInt(values[1]);
@@ -223,7 +227,8 @@ public class Graph implements ActionListener {
         }
         if (com.equals("Shortest path")){
             // input should be like: 0,2
-            String input = textField.getText();
+            String input = JOptionPane.showInputDialog(frame,"Please enter the Nodes keys like this : \n" +
+                    "SRC key,DEST key");
             String[] values = input.split(",");
             if (values.length == 0) {
                 JOptionPane.showMessageDialog(frame, "PLEASE CHOOSE NODES", "ERROR", JOptionPane.INFORMATION_MESSAGE);
@@ -248,7 +253,8 @@ public class Graph implements ActionListener {
         }
         if (com.equals("TSP")) {
             // input should be like: 0,2,5,4,8,9...
-            String input = textField.getText();
+            String input = JOptionPane.showInputDialog(frame,"Please enter the Nodes keys like this : \n" +
+                    "n1,n2,n3,n4,...");
             String[] values = input.split(",");
             if (values.length == 0) {
                 JOptionPane.showMessageDialog(frame, "PLEASE CHOOSE NODES", "ERROR", JOptionPane.INFORMATION_MESSAGE);
@@ -301,39 +307,39 @@ public class Graph implements ActionListener {
         }
         if (com.equals("Add NodeIns")){
             JOptionPane.showMessageDialog(frame,"In order to add a node to the graph do the following: \n" +
+                    "Go to EDIT \n" +
+                    "Click on ADD NODE \n" +
                     "Write the values of the node like this:\n" +
                     "4,35.12,32.587,0.0 \n" +
                     "Which will do:" +
-                    "KEY : 4, X : 35.12, Y : 32.587, Z : 0.0 \n" +
-                    "Go to EDIT \n" +
-                    "Click on ADD NODE" , "HOW TO ADD A NODE", JOptionPane.INFORMATION_MESSAGE);
+                    "KEY : 4, X : 35.12, Y : 32.587, Z : 0.0 \n"  , "HOW TO ADD A NODE", JOptionPane.INFORMATION_MESSAGE);
         }
         if (com.equals("Add EdgeIns")){
             JOptionPane.showMessageDialog(frame,"In order to add an edge to the graph do the following: \n" +
+                    "Go to EDIT \n" +
+                    "Click on ADD EDGE\n" +
                     "Write the values of the edge like this:\n" +
                     "2,10,5.2 \n" +
                     "Which will do:" +
-                    "SRC : 2, DEST : 10, WEIGHT : 5.2 \n" +
-                    "Go to EDIT \n" +
-                    "Click on ADD EDGE" , "HOW TO ADD AN EDGE", JOptionPane.INFORMATION_MESSAGE);
+                    "SRC : 2, DEST : 10, WEIGHT : 5.2 \n"  , "HOW TO ADD AN EDGE", JOptionPane.INFORMATION_MESSAGE);
         }
         if (com.equals("Remove NodeIns")){
             JOptionPane.showMessageDialog(frame,"In order to remove a node from the graph do the following: \n" +
+                    "Go to EDIT \n" +
+                    "Click on REMOVE NODE\n" +
                     "Write the key of the node like this:\n" +
                     "17 \n" +
                     "Which will do:" +
-                    "KEY : 17 \n" +
-                    "Go to EDIT \n" +
-                    "Click on REMOVE NODE" , "HOW TO REMOVE A NODE", JOptionPane.INFORMATION_MESSAGE);
+                    "KEY : 17 \n"  , "HOW TO REMOVE A NODE", JOptionPane.INFORMATION_MESSAGE);
         }
         if (com.equals("Remove EdgeIns")){
             JOptionPane.showMessageDialog(frame,"In order to remove an edge from the graph do the following: \n" +
-                    "Write the values of the edge like this:\n" +
-                    "2,10 \n" +
-                    "Which will do:" +
-                    "SRC : 2, DEST : 10 \n" +
                     "Go to EDIT \n" +
-                    "Click on REMOVE EDGE" , "HOW TO REMOVE AN EDGE", JOptionPane.INFORMATION_MESSAGE);
+                    "Click on REMOVE EDGE\n" +
+                    "Write the key of the node like this:\n" +
+                    "17 \n" +
+                    "Which will do:" +
+                    "KEY : 17 \n"  , "HOW TO REMOVE AN EDGE", JOptionPane.INFORMATION_MESSAGE);
         }
         if (com.equals("Is connectedIns")){
             JOptionPane.showMessageDialog(frame,"In order to check if the graph is connected do the following: \n" +
@@ -342,21 +348,21 @@ public class Graph implements ActionListener {
         }
         if (com.equals("ShortestPathIns")){
             JOptionPane.showMessageDialog(frame,"In order to calculate the shortest path from src to dest do the following: \n" +
+                    "Go to ALGORITHMS \n" +
+                    "Click on SHORTEST PATH\n" +
                     "Write the values of the nodes like this:\n" +
                     "2,10 \n" +
                     "Which will do:" +
-                    "SRC : 2, DEST : 10 \n" +
-                    "Go to ALGORITHMS \n" +
-                    "Click on SHORTEST PATH" , "FIND SHORTEST PATH", JOptionPane.INFORMATION_MESSAGE);
+                    "SRC : 2, DEST : 10 \n"  , "FIND SHORTEST PATH", JOptionPane.INFORMATION_MESSAGE);
         }
         if (com.equals("TspIns")){
             JOptionPane.showMessageDialog(frame,"In order to calculate the a TSP of nodes do the following: \n" +
+                    "Go to ALGORITHMS \n" +
+                    "Click on TSP\n" +
                     "Write the values of the nodes like this:\n" +
                     "2,10,4,17,8,9,5 \n" +
                     "Which will do:" +
-                    "CITIES: 2 , 10 , 4 , 17 , 8 , 9 , 5 \n" +
-                    "Go to ALGORITHMS \n" +
-                    "Click on TSP" , "FIND TSP", JOptionPane.INFORMATION_MESSAGE);
+                    "CITIES: 2 , 10 , 4 , 17 , 8 , 9 , 5 \n"  , "FIND TSP", JOptionPane.INFORMATION_MESSAGE);
         }
         if (com.equals("CenterIns")){
             JOptionPane.showMessageDialog(frame,"In order to find the center node do the following: \n" +
@@ -441,7 +447,6 @@ public class Graph implements ActionListener {
                 int[] ypoints = {y2, (int) ym, (int) yn};
 
                 g2d.fillPolygon(xpoints,ypoints,3);
-                //g2d.drawString("|",(int)algoX(dest.x()),(int)algoY(dest.y()));
             }
         }
         public double algoX(double x) {
