@@ -49,24 +49,24 @@ class Directed_Weighted_Graph_AlgorithmsTest {
 
     @Test
     void isConnected() {
-//        alg.init(g1);
-//        long start = System.currentTimeMillis();
-//        assertTrue(alg.isConnected());
-//        long end = System.currentTimeMillis();
-//        long delta = end - start;
-//        assert(delta < 30);
-//        DirectedWeightedGraph g1 = new Directed_Weighted_Graph("data/1000Nodes.json");
-//        alg.init(g1);
-//        long start1000 = System.currentTimeMillis();
-//        assertTrue(alg.isConnected());
-//        long end1000 = System.currentTimeMillis();
-//        long delta2 = end1000 - start1000;
-//        System.out.println(delta2);
-//        assert(delta2 < 300);
-//
-//        DirectedWeightedGraph g2 = new Directed_Weighted_Graph("data/tsp2.json");
-//        alg.init(g2);
-//        assertTrue(alg.isConnected());
+        alg.init(g1);
+        long start = System.currentTimeMillis();
+        assertTrue(alg.isConnected());
+        long end = System.currentTimeMillis();
+        long delta = end - start;
+        assert(delta < 30);
+        DirectedWeightedGraph g1 = new Directed_Weighted_Graph("data/1000Nodes.json");
+        alg.init(g1);
+        long start1000 = System.currentTimeMillis();
+        assertTrue(alg.isConnected());
+        long end1000 = System.currentTimeMillis();
+        long delta2 = end1000 - start1000;
+        System.out.println(delta2);
+        assert(delta2 < 300);
+
+        DirectedWeightedGraph g2 = new Directed_Weighted_Graph("data/tsp2.json");
+        alg.init(g2);
+        assertTrue(alg.isConnected());
 
         alg.init(g10000);
         assertTrue(alg.isConnected());
