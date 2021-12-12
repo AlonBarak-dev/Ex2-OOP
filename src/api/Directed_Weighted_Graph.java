@@ -27,20 +27,27 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
     public Directed_Weighted_Graph(DirectedWeightedGraph g){
         this.nodes = new HashMap<>();
         this.edges = new HashMap<>();
-        Iterator<NodeData> itr = g.nodeIter();
+        Directed_Weighted_Graph G = (Directed_Weighted_Graph) g;
+        Iterator<NodeData> itr = G.nodeIterPrivate();
 
-        while(itr != null && itr.hasNext()){
+        while(itr.hasNext()){
             this.addNode(itr.next());
         }
 
-        for (int i = 0; i<g.nodeSize();i++){
-            Iterator<EdgeData> tmp = g.edgeIter(i);
-            while(tmp!= null && tmp.hasNext()){
-                EdgeData e = tmp.next();
-                this.connect(e.getSrc(),e.getDest(),e.getWeight());
-            }
+        Iterator<EdgeData> tmp = G.edgeIterPrivate();
+        while(tmp.hasNext()){
+            EdgeData e = tmp.next();
+            this.connect(e.getSrc(),e.getDest(),e.getWeight());
         }
-        this.modeCounter = g.getMC();
+
+//        for (int i = 0; i<G.nodeSize();i++){
+//            Iterator<EdgeData> tmp = G.edgeIterPrivate(i);
+//            while(tmp.hasNext()){
+//                EdgeData e = tmp.next();
+//                this.connect(e.getSrc(),e.getDest(),e.getWeight());
+//            }
+//        }
+        this.modeCounter = G.getMC();
     }
 
 
@@ -275,39 +282,62 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
     @Override
     public NodeData removeNode(int key) {
 
-        NodeData rmNode = this.getNode(key);
-
-        if (rmNode == null)
+        if (this.nodes.get(key) == null) {
             return null;
-
-        for(Integer dest : new HashSet<>(this.edges.get(key).keySet())){
-            this.removeEdge(key,dest);          // removing the edges coming out of the node
         }
 
-        for(Map.Entry<Integer, HashMap<Integer, EdgeData>> src : this.edges.entrySet()){
-            this.removeEdge(src.getKey(), key);     // removing all the edges coming in this node
-        }
-
-        this.modeCounter++;
         this.edges.remove(key);
+
+        for (HashMap<Integer, EdgeData> hash : this.edges.values()) {
+            if (hash.get(key) != null) {
+                this.removeEdge(hash.get(key).getSrc(), hash.get(key).getDest());
+                modeCounter++;
+            }
+        }
+        NodeData temp = this.nodes.get(key);
         this.nodes.remove(key);
-        return rmNode;
+        modeCounter++;
+        return temp;
+//        NodeData rmNode = this.getNode(key);
+//
+//        if (rmNode == null)
+//            return null;
+//
+//        for(Integer dest : new HashSet<>(this.edges.get(key).keySet())){
+//            this.removeEdge(key,dest);          // removing the edges coming out of the node
+//        }
+//
+//        for(Map.Entry<Integer, HashMap<Integer, EdgeData>> src : this.edges.entrySet()){
+//            this.removeEdge(src.getKey(), key);     // removing all the edges coming in this node
+//        }
+//
+//        this.modeCounter++;
+//        this.edges.remove(key);
+//        this.nodes.remove(key);
+//        return rmNode;
     }
 
     @Override
     public EdgeData removeEdge(int src, int dest) {
 
-        EdgeData rmEdge = null;
-
-        if(this.edges.containsKey(src)){
-            rmEdge = this.edges.get(src).remove(dest);
+        if (this.edges.get(src) != null && this.edges.get(src).containsKey(dest)) {
+            EdgeData edge = this.edges.get(src).get(dest);
+            this.edges.get(src).remove(dest);
+            modeCounter++;
+            return edge;
         }
-
-        if (rmEdge != null){
-            this.modeCounter++;
-        }
-
-        return rmEdge;
+        return null;
+//        EdgeData rmEdge = null;
+//
+//        if(this.edges.containsKey(src)){
+//            rmEdge = this.edges.get(src).remove(dest);
+//        }
+//
+//        if (rmEdge != null){
+//            this.modeCounter++;
+//        }
+//
+//        return rmEdge;
     }
 
     @Override
@@ -347,7 +377,7 @@ public class Directed_Weighted_Graph implements DirectedWeightedGraph{
     public Iterator<EdgeData> edgeIterPrivate() {
         HashMap<Integer,EdgeData> tmp = new HashMap<>();
         int key = 0;
-        for (int i = 0; i < this.nodeSize();i++){
+        for (int i : this.edges.keySet()){
             Iterator<EdgeData> e = edgeIter(i);
             while(e != null && e.hasNext()){
                 tmp.put(key,e.next());

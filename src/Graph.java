@@ -155,7 +155,7 @@ public class Graph implements ActionListener {
             String input = JOptionPane.showInputDialog(frame,"Please enter the Node key like this : \n" +
                     "Key");
             int key = Integer.parseInt(input);
-            DirectedWeightedGraph newGraph = graph.getGraph();
+            DirectedWeightedGraph newGraph = new Directed_Weighted_Graph(graph.getGraph());
             newGraph.removeNode(key);
             graph.init(newGraph);
             frame.remove(cmp);
@@ -386,8 +386,8 @@ public class Graph implements ActionListener {
         }
         public void drawNodes(Graphics2D g2d, DirectedWeightedGraph DG) {
 
-
-            Iterator<NodeData> it = DG.nodeIter();
+            Directed_Weighted_Graph DW2 = (Directed_Weighted_Graph) DG;
+            Iterator<NodeData> it = DW2.nodeIterPrivate();
             while (it.hasNext()) {
                 NodeData node = it.next();
                 GeoLocation loc = node.getLocation();
@@ -443,6 +443,7 @@ public class Graph implements ActionListener {
             return y + margin;
         }
         public void updatePrivateValues(DirectedWeightedGraph DWG) {
+
             Iterator<NodeData> it = DWG.nodeIter();
             while (it.hasNext()) {
                 NodeData node = it.next();
